@@ -46,7 +46,7 @@ function Index() {
         <section className="relative mx-auto w-full max-w-6xl px-5 pb-10 pt-16 text-center">
           <div
             aria-hidden
-            className="pointer-events-none absolute left-1/2 top-24 -z-10 h-[420px] w-[820px] max-w-[95vw] -translate-x-1/2 rounded-full bg-primary/10 blur-[130px]"
+            className="pointer-events-none absolute left-1/2 top-24 -z-10 h-[420px] w-[820px] max-w-[95vw] -translate-x-1/2 rounded-full bg-clay/10 blur-[130px]"
           />
           <p className="font-mono-ui text-xs text-primary">
             <span className="text-muted-foreground">$ </span>./brand-my-keyboard --live

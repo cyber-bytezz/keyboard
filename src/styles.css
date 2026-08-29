@@ -74,44 +74,44 @@
 
 :root {
   --radius: 0.25rem;
-  --background: oklch(0.208 0.004 285.9);
-  --foreground: oklch(0.924 0.023 88.5);
-  --surface: oklch(0.246 0.004 285.9);
-  --surface-2: oklch(0.286 0.004 285.9);
-  --card: oklch(0.246 0.004 285.9);
-  --card-foreground: oklch(0.924 0.023 88.5);
-  --popover: oklch(0.246 0.004 285.9);
-  --popover-foreground: oklch(0.924 0.023 88.5);
-  --primary: oklch(0.712 0.104 179.6);
-  --primary-foreground: oklch(0.18 0.02 180);
-  --secondary: oklch(0.286 0.004 285.9);
-  --secondary-foreground: oklch(0.924 0.023 88.5);
-  --muted: oklch(0.286 0.004 285.9);
-  --muted-foreground: oklch(0.665 0.014 88.5);
-  --accent: oklch(0.286 0.004 285.9);
-  --accent-foreground: oklch(0.924 0.023 88.5);
-  --clay: oklch(0.564 0.137 34.6);
-  --clay-foreground: oklch(0.96 0.02 60);
-  --destructive: oklch(0.564 0.137 34.6);
-  --destructive-foreground: oklch(0.96 0.02 60);
-  --keycap: oklch(0.318 0.004 285.9);
-  --keycap-foreground: oklch(0.7 0.012 88.5);
-  --border: oklch(0.318 0.004 285.9);
-  --input: oklch(0.318 0.004 285.9);
-  --ring: oklch(0.712 0.104 179.6);
-  --chart-1: oklch(0.712 0.104 179.6);
-  --chart-2: oklch(0.564 0.137 34.6);
-  --chart-3: oklch(0.665 0.014 88.5);
-  --chart-4: oklch(0.318 0.004 285.9);
-  --chart-5: oklch(0.924 0.023 88.5);
-  --sidebar: oklch(0.246 0.004 285.9);
-  --sidebar-foreground: oklch(0.924 0.023 88.5);
-  --sidebar-primary: oklch(0.712 0.104 179.6);
-  --sidebar-primary-foreground: oklch(0.18 0.02 180);
-  --sidebar-accent: oklch(0.286 0.004 285.9);
-  --sidebar-accent-foreground: oklch(0.924 0.023 88.5);
-  --sidebar-border: oklch(0.318 0.004 285.9);
-  --sidebar-ring: oklch(0.712 0.104 179.6);
+  --background: oklch(1 0 0);
+  --foreground: oklch(0.145 0.004 285.9);
+  --surface: oklch(0.975 0.002 285.9);
+  --surface-2: oklch(0.94 0.003 285.9);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.145 0.004 285.9);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.145 0.004 285.9);
+  --primary: oklch(0.145 0.004 285.9);
+  --primary-foreground: oklch(0.99 0 0);
+  --secondary: oklch(0.955 0.003 285.9);
+  --secondary-foreground: oklch(0.145 0.004 285.9);
+  --muted: oklch(0.955 0.003 285.9);
+  --muted-foreground: oklch(0.48 0.008 285.9);
+  --accent: oklch(0.955 0.003 285.9);
+  --accent-foreground: oklch(0.145 0.004 285.9);
+  --clay: oklch(0.6 0.19 27);
+  --clay-foreground: oklch(0.98 0.01 27);
+  --destructive: oklch(0.577 0.19 27);
+  --destructive-foreground: oklch(0.98 0.01 27);
+  --keycap: oklch(0.22 0.004 285.9);
+  --keycap-foreground: oklch(0.58 0.01 285.9);
+  --border: oklch(0.9 0.003 285.9);
+  --input: oklch(0.9 0.003 285.9);
+  --ring: oklch(0.145 0.004 285.9);
+  --chart-1: oklch(0.145 0.004 285.9);
+  --chart-2: oklch(0.6 0.19 27);
+  --chart-3: oklch(0.48 0.008 285.9);
+  --chart-4: oklch(0.9 0.003 285.9);
+  --chart-5: oklch(0.65 0.005 285.9);
+  --sidebar: oklch(1 0 0);
+  --sidebar-foreground: oklch(0.145 0.004 285.9);
+  --sidebar-primary: oklch(0.145 0.004 285.9);
+  --sidebar-primary-foreground: oklch(0.99 0 0);
+  --sidebar-accent: oklch(0.955 0.003 285.9);
+  --sidebar-accent-foreground: oklch(0.145 0.004 285.9);
+  --sidebar-border: oklch(0.9 0.003 285.9);
+  --sidebar-ring: oklch(0.145 0.004 285.9);
   --font-mono-ui: "JetBrains Mono Variable", ui-monospace, monospace;
   --font-sans-ui: "Inter Variable", ui-sans-serif, system-ui, sans-serif;
 }
@@ -132,7 +132,7 @@
 }
 
 html {
-  color-scheme: dark;
+  color-scheme: light;
 }
 
 body {
@@ -273,16 +273,20 @@ body {
   --kb-key-skirt: oklch(0.15 0.004 285.9);
 }
 
+/* open spots read as pale, almost-white caps against the black case —
+   the "available" cap stands out the way a stock keycap would. */
 .kb-key-open {
-  --kb-key-top: oklch(0.38 0.045 179.6);
-  --kb-key-bottom: oklch(0.275 0.036 179.6);
-  --kb-key-skirt: oklch(0.17 0.03 179.6);
+  --kb-key-top: oklch(0.9 0.003 285.9);
+  --kb-key-bottom: oklch(0.78 0.004 285.9);
+  --kb-key-skirt: oklch(0.6 0.004 285.9);
 }
 
+/* taken spots get the brand red, the same accent Raycast prints on its
+   diamond key and function-row glyphs. */
 .kb-key-taken {
-  --kb-key-top: oklch(0.45 0.1 34.6);
-  --kb-key-bottom: oklch(0.33 0.08 34.6);
-  --kb-key-skirt: oklch(0.2 0.05 34.6);
+  --kb-key-top: oklch(0.58 0.19 27);
+  --kb-key-bottom: oklch(0.44 0.17 27);
+  --kb-key-skirt: oklch(0.26 0.12 27);
 }
 
 /* bottomed-out: cap sinks into the plate and the switch LED bleeds out.
@@ -293,9 +297,9 @@ body {
   box-shadow:
     inset 0 1px 0 oklch(1 0 0 / 0.1),
     inset 0 3px 8px oklch(0 0 0 / 0.65),
-    0 0 0 1px oklch(0.712 0.104 179.6 / calc(0.35 * var(--kb-glow))),
-    0 0 26px -2px oklch(0.712 0.104 179.6 / calc(0.55 * var(--kb-glow))),
-    0 0 60px -10px oklch(0.712 0.104 179.6 / calc(0.4 * var(--kb-glow)));
+    0 0 0 1px oklch(0.58 0.19 27 / calc(0.35 * var(--kb-glow))),
+    0 0 26px -2px oklch(0.58 0.19 27 / calc(0.55 * var(--kb-glow))),
+    0 0 60px -10px oklch(0.58 0.19 27 / calc(0.4 * var(--kb-glow)));
   filter: brightness(calc(1 + 0.18 * var(--kb-glow)));
 }
 

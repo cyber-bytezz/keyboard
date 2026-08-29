@@ -69,7 +69,7 @@ const Keycap = memo(function Keycap({
         spot?.status === "taken" &&
           "kb-key-taken cursor-pointer text-clay-foreground hover:translate-y-[1px] hover:brightness-110",
         isDown && "kb-key-down",
-        selected && "ring-2 ring-primary ring-offset-2 ring-offset-surface",
+        selected && "ring-2 ring-clay ring-offset-2 ring-offset-[#141416]",
       )}
       aria-label={
         spot
@@ -246,10 +246,10 @@ export function KeyboardBoard({ spots, selectedCode, onSelect }: Props) {
 
       <div className="font-mono-ui mt-4 flex flex-wrap justify-center gap-x-5 gap-y-2 text-[11px] text-muted-foreground">
         <span className="flex items-center gap-2">
-          <span className="size-3 rounded-[2px] bg-primary/40" /> open spot
+          <span className="size-3 rounded-[2px] bg-foreground/30" /> open spot
         </span>
         <span className="flex items-center gap-2">
-          <span className="size-3 rounded-[2px] bg-clay/50" /> taken
+          <span className="size-3 rounded-[2px] bg-clay/60" /> taken
         </span>
         <span className="flex items-center gap-2">
           <span className="size-3 rounded-[2px] bg-keycap" /> not for sale
