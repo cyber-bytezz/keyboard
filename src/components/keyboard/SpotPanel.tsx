@@ -18,9 +18,9 @@ export function SpotPanel({
   if (!spot) {
     return (
       <div className="font-mono-ui flex h-full min-h-[280px] flex-col justify-center rounded-md border border-dashed border-border bg-surface/50 p-6 text-xs text-muted-foreground">
-        <p className="text-primary">{"// select a keycap"}</p>
+        <p className="text-clay">{"// select a keycap"}</p>
         <p className="mt-2 leading-relaxed">
-          Teal caps are open for bidding. Clay caps already belong to a sponsor. Click any cap to
+          Pale caps are open for bidding. Red caps already belong to a sponsor. Click any cap to
           inspect its price and bid history.
         </p>
       </div>

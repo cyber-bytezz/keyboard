@@ -48,10 +48,10 @@ function Index() {
             aria-hidden
             className="pointer-events-none absolute left-1/2 top-24 -z-10 h-[420px] w-[820px] max-w-[95vw] -translate-x-1/2 rounded-full bg-clay/10 blur-[130px]"
           />
-          <p className="font-mono-ui text-xs text-primary">
-            <span className="text-muted-foreground">$ </span>./brand-my-keyboard --live
+          <p className="font-mono-ui inline-flex items-center gap-1.5 rounded-full border border-border bg-surface px-3 py-1 text-xs text-clay">
+            <span className="text-muted-foreground">$</span>./brand-my-keyboard --live
           </p>
-          <h1 className="font-mono-ui mx-auto mt-5 max-w-3xl text-3xl font-bold leading-tight tracking-tight text-foreground sm:text-5xl">
+          <h1 className="mx-auto mt-6 max-w-3xl text-4xl font-bold leading-[1.1] tracking-tight text-foreground sm:text-6xl">
             Put your logo on a keycap I actually type on.
           </h1>
           <p className="mx-auto mt-5 max-w-2xl text-base leading-relaxed text-muted-foreground">

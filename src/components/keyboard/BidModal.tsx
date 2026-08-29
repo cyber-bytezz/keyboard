@@ -112,7 +112,7 @@ export function BidModal({
           <DialogDescription className="text-xs leading-relaxed">
             Current price {formatUsd(spot.current_price)}. Minimum next bid{" "}
             {formatUsd(minBid)} — every bid is capped at {formatUsd(MAX_BID)}. Your bid takes the
-            cap <span className="text-primary">instantly</span> — payment is collected by email
+            cap <span className="font-semibold text-clay">instantly</span> — payment is collected by email
             once the board closes, and you&rsquo;re free if someone outbids you first.
           </DialogDescription>
         </DialogHeader>
@@ -198,7 +198,7 @@ export function BidModal({
               required
             />
             <p className="font-mono-ui text-[11px] text-muted-foreground">
-              due now: <span className="text-primary">{formatUsd(amount)}</span> — refunded if
+              due now: <span className="font-semibold text-clay">{formatUsd(amount)}</span> — refunded if
               you&rsquo;re outbid
             </p>
           </div>

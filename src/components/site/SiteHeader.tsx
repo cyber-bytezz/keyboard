@@ -26,7 +26,7 @@ export function SiteHeader() {
     <header className="sticky top-0 z-40 border-b border-border bg-background/95 backdrop-blur">
       <div className="mx-auto grid w-full max-w-6xl grid-cols-[minmax(0,1fr)_auto] items-center gap-4 px-5 py-3">
         <a href="#top" className="font-mono-ui flex min-w-0 items-center gap-2 text-sm font-bold">
-          <span className="grid size-7 shrink-0 place-items-center rounded-[3px] border border-border bg-keycap text-[11px] text-primary">
+          <span className="grid size-7 shrink-0 place-items-center rounded-[6px] border border-border bg-keycap text-[11px] text-clay">
             ⌘
           </span>
           <span className="truncate">Brand My Keyboard</span>

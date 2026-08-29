@@ -27,8 +27,8 @@ export function HowItWorks() {
       <div className="grid gap-4 md:grid-cols-3">
         {STEPS.map((step) => (
           <div key={step.n} className="rounded-md border border-border bg-surface p-6">
-            <p className="font-mono-ui text-xs text-primary">{step.n}</p>
-            <h3 className="font-mono-ui mt-3 text-lg font-bold text-foreground">{step.title}</h3>
+            <p className="font-mono-ui text-xs font-bold text-clay">{step.n}</p>
+            <h3 className="mt-3 text-lg font-bold text-foreground">{step.title}</h3>
             <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{step.body}</p>
           </div>
         ))}
