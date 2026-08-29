@@ -26,9 +26,14 @@ export function HowItWorks() {
       </SectionHeading>
       <div className="grid gap-4 md:grid-cols-3">
         {STEPS.map((step) => (
-          <div key={step.n} className="rounded-md border border-border bg-surface p-6">
-            <p className="font-mono-ui text-xs font-bold text-clay">{step.n}</p>
-            <h3 className="mt-3 text-lg font-bold text-foreground">{step.title}</h3>
+          <div
+            key={step.n}
+            className="card-surface card-surface-hover rounded-2xl border border-border bg-background p-6"
+          >
+            <span className="font-mono-ui grid size-9 place-items-center rounded-full bg-clay/10 text-xs font-bold text-clay">
+              {step.n}
+            </span>
+            <h3 className="mt-4 text-lg font-bold text-foreground">{step.title}</h3>
             <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{step.body}</p>
           </div>
         ))}

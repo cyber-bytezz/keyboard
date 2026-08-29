@@ -43,7 +43,8 @@ function Index() {
       <SiteHeader />
 
       <main>
-        <section className="relative mx-auto w-full max-w-6xl px-5 pb-10 pt-16 text-center">
+        <section className="relative mx-auto w-full max-w-6xl px-5 pb-10 pt-20 text-center sm:pt-28">
+          <div aria-hidden className="bg-dot-grid pointer-events-none absolute inset-x-0 top-0 -z-10 h-[480px]" />
           <div
             aria-hidden
             className="pointer-events-none absolute left-1/2 top-24 -z-10 h-[420px] w-[820px] max-w-[95vw] -translate-x-1/2 rounded-full bg-clay/10 blur-[130px]"
@@ -51,18 +52,18 @@ function Index() {
           <p className="font-mono-ui inline-flex items-center gap-1.5 rounded-full border border-border bg-surface px-3 py-1 text-xs text-clay">
             <span className="text-muted-foreground">$</span>./brand-my-keyboard --live
           </p>
-          <h1 className="mx-auto mt-6 max-w-3xl text-4xl font-bold leading-[1.1] tracking-tight text-foreground sm:text-6xl">
+          <h1 className="mx-auto mt-6 max-w-3xl text-4xl font-bold leading-[1.1] tracking-tight text-balance text-foreground sm:text-6xl">
             Put your logo on a keycap I actually type on.
           </h1>
-          <p className="mx-auto mt-5 max-w-2xl text-base leading-relaxed text-muted-foreground">
+          <p className="mx-auto mt-5 max-w-2xl text-balance text-base leading-relaxed text-muted-foreground">
             I'm building a custom mechanical keyboard in public. Every sponsor keycap gets your logo
             UV-printed on a real cap — then it shows up in the build logs, macro shots and dev videos
             that follow. Spin the board, pick a cap, place your bid.
           </p>
 
-          <div id="board" className="mt-12 space-y-6 text-left">
+          <div id="board" className="mt-14 space-y-6 text-left">
             {isLoading ? (
-              <div className="font-mono-ui h-[320px] animate-pulse rounded-md border border-border bg-surface p-6 text-xs text-muted-foreground">
+              <div className="font-mono-ui h-[320px] animate-pulse rounded-2xl border border-border bg-surface p-6 text-xs text-muted-foreground">
                 loading board…
               </div>
             ) : (
@@ -84,10 +85,13 @@ function Index() {
           </div>
         </section>
 
-
-        <HowItWorks />
+        <div className="border-t border-border bg-surface/60">
+          <HowItWorks />
+        </div>
         <PricingTiers spots={list} />
-        <Faq />
+        <div className="border-t border-border bg-surface/60">
+          <Faq />
+        </div>
       </main>
 
       <SiteFooter />

@@ -120,6 +120,34 @@
   color-scheme: dark;
 }
 
+/* faint dot-grid used behind the hero — a quiet texture, not a pattern
+   that competes with the keyboard photo. */
+.bg-dot-grid {
+  background-image: radial-gradient(oklch(0.145 0.004 285.9 / 0.08) 1px, transparent 1px);
+  background-size: 22px 22px;
+  mask-image: radial-gradient(65% 60% at 50% 25%, black 0%, transparent 100%);
+}
+
+/* shared card elevation — a hairline border plus a soft, layered shadow
+   instead of Tailwind's flat default, so cards read as raised surfaces. */
+.card-surface {
+  box-shadow:
+    0 1px 2px oklch(0.145 0.004 285.9 / 0.04),
+    0 10px 24px -16px oklch(0.145 0.004 285.9 / 0.14);
+}
+
+.card-surface-hover {
+  transition: box-shadow 0.2s ease, transform 0.2s ease, border-color 0.2s ease;
+}
+
+.card-surface-hover:hover {
+  border-color: oklch(0.145 0.004 285.9 / 0.16);
+  box-shadow:
+    0 1px 2px oklch(0.145 0.004 285.9 / 0.04),
+    0 18px 32px -18px oklch(0.145 0.004 285.9 / 0.2);
+  transform: translateY(-2px);
+}
+
 @layer base {
   * {
     border-color: var(--color-border);

@@ -170,11 +170,11 @@ export function KeyboardBoard({ spots, selectedCode, onSelect }: Props) {
           caps their physical depth, like a product shot. */}
       <div
         ref={viewRef}
-        className="w-full overflow-hidden px-1 pb-6 pt-2"
+        className="w-full overflow-hidden rounded-2xl border border-border bg-surface px-1 pb-8 pt-6 shadow-[inset_0_1px_0_rgb(255_255_255/0.6)] sm:px-4"
         style={{
           perspective: "1600px",
           perspectiveOrigin: "50% 40%",
-          height: viewHeight ? viewHeight + 32 : undefined,
+          height: viewHeight ? viewHeight + 56 : undefined,
         }}
       >
         <div
@@ -222,7 +222,7 @@ export function KeyboardBoard({ spots, selectedCode, onSelect }: Props) {
         </div>
       </div>
 
-      <div className="mt-2 flex flex-wrap items-center justify-center gap-3">
+      <div className="mt-4 flex flex-wrap items-center justify-center gap-3">
         <span className="font-mono-ui text-[11px] text-muted-foreground">
           tap a keycap — or type on your own keyboard
         </span>
@@ -244,15 +244,15 @@ export function KeyboardBoard({ spots, selectedCode, onSelect }: Props) {
         </Button>
       </div>
 
-      <div className="font-mono-ui mt-4 flex flex-wrap justify-center gap-x-5 gap-y-2 text-[11px] text-muted-foreground">
-        <span className="flex items-center gap-2">
-          <span className="size-3 rounded-[2px] bg-foreground/30" /> open spot
+      <div className="font-mono-ui mt-4 flex flex-wrap justify-center gap-2 text-[11px] text-muted-foreground">
+        <span className="inline-flex items-center gap-1.5 rounded-full border border-border bg-surface px-2.5 py-1">
+          <span className="size-2 rounded-full bg-foreground/30" /> open spot
         </span>
-        <span className="flex items-center gap-2">
-          <span className="size-3 rounded-[2px] bg-clay/60" /> taken
+        <span className="inline-flex items-center gap-1.5 rounded-full border border-border bg-surface px-2.5 py-1">
+          <span className="size-2 rounded-full bg-clay" /> taken
         </span>
-        <span className="flex items-center gap-2">
-          <span className="size-3 rounded-[2px] bg-keycap" /> not for sale
+        <span className="inline-flex items-center gap-1.5 rounded-full border border-border bg-surface px-2.5 py-1">
+          <span className="size-2 rounded-full bg-keycap" /> not for sale
         </span>
       </div>
     </div>
