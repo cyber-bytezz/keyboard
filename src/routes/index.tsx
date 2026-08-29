@@ -47,7 +47,7 @@ function Index() {
           <div aria-hidden className="bg-dot-grid pointer-events-none absolute inset-x-0 top-0 -z-10 h-[480px]" />
           <div
             aria-hidden
-            className="pointer-events-none absolute left-1/2 top-24 -z-10 h-[420px] w-[820px] max-w-[95vw] -translate-x-1/2 rounded-full bg-clay/10 blur-[130px]"
+            className="pointer-events-none absolute left-1/2 top-24 -z-10 h-[420px] w-[820px] max-w-[95vw] -translate-x-1/2 rounded-full bg-clay/20 blur-[130px]"
           />
           <p className="font-mono-ui inline-flex items-center gap-1.5 rounded-full border border-border bg-surface px-3 py-1 text-xs text-clay">
             <span className="text-muted-foreground">$</span>./brand-my-keyboard --live
@@ -85,11 +85,13 @@ function Index() {
           </div>
         </section>
 
-        <div className="border-t border-border bg-surface/60">
+        <div className="border-t border-border">
           <HowItWorks />
         </div>
-        <PricingTiers spots={list} />
-        <div className="border-t border-border bg-surface/60">
+        <div className="border-t border-border">
+          <PricingTiers spots={list} />
+        </div>
+        <div className="border-t border-border">
           <Faq />
         </div>
       </main>

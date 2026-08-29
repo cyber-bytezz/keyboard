@@ -32,7 +32,7 @@ export function Faq() {
       <Accordion
         type="single"
         collapsible
-        className="card-surface w-full divide-y divide-border overflow-hidden rounded-2xl border border-border bg-background px-5"
+        className="card-surface w-full divide-y divide-border overflow-hidden rounded-2xl border border-border bg-surface px-5"
       >
         {FAQS.map((item) => (
           <AccordionItem key={item.q} value={item.q} className="border-b-0">

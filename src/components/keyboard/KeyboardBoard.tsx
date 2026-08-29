@@ -65,7 +65,7 @@ const Keycap = memo(function Keycap({
         "kb-key font-mono-ui group relative flex h-9 min-w-0 select-none items-center justify-center rounded-[5px] px-1 text-[10px] leading-none transition-transform duration-100 sm:h-11 sm:text-[11px]",
         !spot && "kb-key-dead cursor-default text-keycap-foreground/60",
         spot?.status === "open" &&
-          "kb-key-open cursor-pointer text-primary hover:translate-y-[1px] hover:brightness-110",
+          "kb-key-open cursor-pointer text-black/80 hover:translate-y-[1px] hover:brightness-110",
         spot?.status === "taken" &&
           "kb-key-taken cursor-pointer text-clay-foreground hover:translate-y-[1px] hover:brightness-110",
         isDown && "kb-key-down",

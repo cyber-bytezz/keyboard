@@ -28,7 +28,7 @@ export function HowItWorks() {
         {STEPS.map((step) => (
           <div
             key={step.n}
-            className="card-surface card-surface-hover rounded-2xl border border-border bg-background p-6"
+            className="card-surface card-surface-hover rounded-2xl border border-border bg-surface p-6"
           >
             <span className="font-mono-ui grid size-9 place-items-center rounded-full bg-clay/10 text-xs font-bold text-clay">
               {step.n}
