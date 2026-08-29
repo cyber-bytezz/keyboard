@@ -83,18 +83,17 @@ export function BidModal({
           origin: window.location.origin,
         },
       });
+      // The keycap isn't held until Dodo confirms payment (see
+      // bids.server.ts) — the bid list here just reflects the new pending
+      // bid; the board itself updates via realtime once the webhook lands.
+      await queryClient.invalidateQueries({ queryKey: ["bids"] });
       if (result.checkoutUrl) {
         window.location.href = result.checkoutUrl;
         return;
       }
-      await queryClient.invalidateQueries({ queryKey: ["sponsor_spots"] });
-      await queryClient.invalidateQueries({ queryKey: ["bids"] });
-      toast.success(
-        result.reachedCap
-          ? `${formatUsd(result.amount)} — you hit the cap, ${spot.label} is yours.`
-          : `You're the top bidder on ${spot.label} at ${formatUsd(result.amount)}.`,
-      );
-      onOpenChange(false);
+      // Shouldn't happen — placeBid throws instead of returning a null
+      // checkoutUrl — but don't leave the user staring at a stuck button.
+      toast.error("Checkout could not be started — please try again");
     } catch (error) {
       toast.error(error instanceof Error ? error.message : "Could not place the bid");
     } finally {
@@ -111,9 +110,10 @@ export function BidModal({
           </DialogTitle>
           <DialogDescription className="text-xs leading-relaxed">
             Current price {formatUsd(spot.current_price)}. Minimum next bid{" "}
-            {formatUsd(minBid)} — every bid is capped at {formatUsd(MAX_BID)}. Your bid takes the
-            cap <span className="font-semibold text-clay">instantly</span> — payment is collected by email
-            once the board closes, and you&rsquo;re free if someone outbids you first.
+            {formatUsd(minBid)} — every bid is capped at {formatUsd(MAX_BID)}. You&rsquo;ll be sent
+            to checkout to pay <span className="font-semibold text-clay">now</span> — the cap is
+            yours the moment payment clears, and it&rsquo;s refunded automatically if someone
+            outbids you.
           </DialogDescription>
         </DialogHeader>
 
@@ -204,7 +204,7 @@ export function BidModal({
           </div>
 
           <Button type="submit" disabled={submitting} className="font-mono-ui w-full text-xs">
-            {submitting ? "placing bid…" : `place bid — ${formatUsd(amount)}`}
+            {submitting ? "starting checkout…" : `continue to checkout — ${formatUsd(amount)}`}
           </Button>
         </form>
       </DialogContent>

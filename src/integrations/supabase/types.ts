@@ -26,8 +26,9 @@ export type Database = {
           logo_url: string | null
           spot_id: string
           status: Database["public"]["Enums"]["bid_status"]
-          stripe_payment_intent_id: string | null
-          stripe_session_id: string | null
+          dodo_payment_id: string | null
+          dodo_checkout_session_id: string | null
+          refund_id: string | null
           updated_at: string
         }
         Insert: {
@@ -41,8 +42,9 @@ export type Database = {
           logo_url?: string | null
           spot_id: string
           status?: Database["public"]["Enums"]["bid_status"]
-          stripe_payment_intent_id?: string | null
-          stripe_session_id?: string | null
+          dodo_payment_id?: string | null
+          dodo_checkout_session_id?: string | null
+          refund_id?: string | null
           updated_at?: string
         }
         Update: {
@@ -56,8 +58,9 @@ export type Database = {
           logo_url?: string | null
           spot_id?: string
           status?: Database["public"]["Enums"]["bid_status"]
-          stripe_payment_intent_id?: string | null
-          stripe_session_id?: string | null
+          dodo_payment_id?: string | null
+          dodo_checkout_session_id?: string | null
+          refund_id?: string | null
           updated_at?: string
         }
         Relationships: [
@@ -120,7 +123,7 @@ export type Database = {
       [_ in never]: never
     }
     Enums: {
-      bid_status: "pending" | "active" | "outbid" | "won"
+      bid_status: "pending" | "active" | "outbid" | "won" | "failed"
       spot_status: "open" | "taken"
       spot_tier: "accent" | "home_row" | "enter_shift" | "spacebar"
     }
@@ -250,7 +253,7 @@ export type CompositeTypes<
 export const Constants = {
   public: {
     Enums: {
-      bid_status: ["pending", "active", "outbid", "won"],
+      bid_status: ["pending", "active", "outbid", "won", "failed"],
       spot_status: ["open", "taken"],
       spot_tier: ["accent", "home_row", "enter_shift", "spacebar"],
     },

@@ -7,7 +7,7 @@ const input = z.object({
 
 /** Returns short-lived signed URLs for sponsor logos in the private bucket. */
 export const signLogos = createServerFn({ method: "POST" })
-  .inputValidator((data: unknown) => input.parse(data))
+  .validator(input)
   .handler(async ({ data }) => {
     const { signLogoPaths } = await import("./bids.server");
     return signLogoPaths(data.paths);

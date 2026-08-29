@@ -13,7 +13,7 @@ const bidInput = z.object({
 });
 
 export const submitBid = createServerFn({ method: "POST" })
-  .inputValidator((data: unknown) => bidInput.parse(data))
+  .validator(bidInput)
   .handler(async ({ data }) => {
     const { placeBid } = await import("./bids.server");
     return placeBid(data);

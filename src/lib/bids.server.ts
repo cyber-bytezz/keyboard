@@ -33,6 +33,12 @@ async function uploadLogo(
   return path;
 }
 
+/**
+ * Submits a bid. This only *reserves* the keycap and starts a Dodo Payments
+ * checkout — the bid stays "pending" and the spot's price/status are
+ * untouched until the checkout actually completes and Dodo's webhook calls
+ * confirmBidPayment() below. See routes/api/webhooks/dodo.ts.
+ */
 export async function placeBid(input: PlaceBidInput) {
   const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
 
@@ -63,7 +69,6 @@ export async function placeBid(input: PlaceBidInput) {
 
   const deposit = Math.round(input.amount * DEPOSIT_RATE);
 
-  // Record the bid as the new leader.
   const { data: bid, error: bidError } = await supabaseAdmin
     .from("bids")
     .insert({
@@ -74,46 +79,153 @@ export async function placeBid(input: PlaceBidInput) {
       logo_url: logoPath,
       amount: input.amount,
       deposit_amount: deposit,
-      status: "active",
+      status: "pending",
     })
     .select("id")
     .single();
 
   if (bidError || !bid) throw new Error("Could not record the bid");
 
-  // Everyone who was leading this spot before is now outbid.
+  try {
+    const { createCheckoutSession } = await import("./dodo.server");
+    const checkout = await createCheckoutSession({
+      amountCents: input.amount * 100,
+      bidderEmail: input.bidderEmail,
+      bidderName: input.bidderName,
+      returnUrl: `${input.origin}/?bid=${bid.id}`,
+      metadata: { bid_id: bid.id, spot_id: spot.id },
+    });
+
+    await supabaseAdmin
+      .from("bids")
+      .update({ dodo_checkout_session_id: checkout.sessionId })
+      .eq("id", bid.id);
+
+    return {
+      bidId: bid.id as string,
+      amount: input.amount,
+      deposit,
+      reachedCap: false,
+      checkoutUrl: checkout.checkoutUrl,
+    };
+  } catch (err) {
+    // Checkout couldn't be created — don't leave a dangling pending bid
+    // sitting in the way of the next bidder.
+    console.error("Dodo checkout session creation failed", err);
+    await supabaseAdmin.from("bids").update({ status: "failed" }).eq("id", bid.id);
+    throw new Error("Could not start checkout — please try again");
+  }
+}
+
+/**
+ * Called by the Dodo webhook once a checkout actually pays. Promotes the
+ * bid to the spot's new leader and refunds whoever it displaces — either
+ * the previous leader (normal outbid) or, if two checkouts for the same
+ * spot were in flight at once and a higher one already won, this bidder
+ * themself (paid, but didn't end up winning).
+ */
+export async function confirmBidPayment(input: { bidId: string; paymentId: string }) {
+  const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+  const { refundPayment } = await import("./dodo.server");
+
+  const { data: bid, error: bidError } = await supabaseAdmin
+    .from("bids")
+    .select("id, spot_id, amount, company, logo_url, status")
+    .eq("id", input.bidId)
+    .maybeSingle();
+  if (bidError || !bid) {
+    console.error(`confirmBidPayment: bid ${input.bidId} not found`);
+    return;
+  }
+  if (bid.status !== "pending") return; // already processed — webhooks can repeat
+
+  const { data: spot, error: spotError } = await supabaseAdmin
+    .from("sponsor_spots")
+    .select("id, current_price, status")
+    .eq("id", bid.spot_id)
+    .maybeSingle();
+  if (spotError || !spot) {
+    console.error(`confirmBidPayment: spot for bid ${bid.id} not found`);
+    return;
+  }
+
+  const lostTheRace = spot.status === "taken" || spot.current_price >= bid.amount;
+  if (lostTheRace) {
+    await supabaseAdmin
+      .from("bids")
+      .update({ status: "outbid", dodo_payment_id: input.paymentId })
+      .eq("id", bid.id);
+    await refundAndRecord(supabaseAdmin, refundPayment, {
+      id: bid.id,
+      paymentId: input.paymentId,
+      amountCents: bid.amount * 100,
+    });
+    return;
+  }
+
+  const reachedCap = bid.amount >= MAX_BID;
+
+  const { data: previousLeaders } = await supabaseAdmin
+    .from("bids")
+    .select("id, amount, dodo_payment_id")
+    .eq("spot_id", spot.id)
+    .eq("status", "active");
+
+  for (const prev of previousLeaders ?? []) {
+    await supabaseAdmin.from("bids").update({ status: "outbid" }).eq("id", prev.id);
+    if (prev.dodo_payment_id) {
+      await refundAndRecord(supabaseAdmin, refundPayment, {
+        id: prev.id,
+        paymentId: prev.dodo_payment_id,
+        amountCents: prev.amount * 100,
+      });
+    }
+  }
+
   await supabaseAdmin
     .from("bids")
-    .update({ status: "outbid" })
-    .eq("spot_id", spot.id)
-    .eq("status", "active")
-    .neq("id", bid.id);
+    .update({ status: reachedCap ? "won" : "active", dodo_payment_id: input.paymentId })
+    .eq("id", bid.id);
 
-  // The leading bidder holds the cap. At the $6 cap the spot closes for good.
-  const reachedCap = input.amount >= MAX_BID;
-  const { error: spotUpdateError } = await supabaseAdmin
+  await supabaseAdmin
     .from("sponsor_spots")
     .update({
-      current_price: input.amount,
-      sponsor_name: input.company,
-      ...(logoPath ? { sponsor_logo_url: logoPath } : {}),
+      current_price: bid.amount,
+      sponsor_name: bid.company,
+      ...(bid.logo_url ? { sponsor_logo_url: bid.logo_url } : {}),
       status: reachedCap ? "taken" : "open",
     })
     .eq("id", spot.id);
+}
 
-  if (spotUpdateError) throw new Error("Bid saved, but the board could not be updated");
-
-  if (reachedCap) {
-    await supabaseAdmin.from("bids").update({ status: "won" }).eq("id", bid.id);
+async function refundAndRecord(
+  supabaseAdmin: any,
+  refundPayment: (input: { paymentId: string; amountCents: number }) => Promise<{
+    refundId: string | null;
+  }>,
+  bid: { id: string; paymentId: string; amountCents: number },
+) {
+  try {
+    const refund = await refundPayment({ paymentId: bid.paymentId, amountCents: bid.amountCents });
+    if (refund.refundId) {
+      await supabaseAdmin.from("bids").update({ refund_id: refund.refundId }).eq("id", bid.id);
+    }
+  } catch (err) {
+    // The bid is already marked outbid — surfacing this only in logs is a
+    // deliberate tradeoff so a refund hiccup doesn't block the webhook from
+    // acking. Needs manual follow-up (or a retry job) if this ever fires.
+    console.error(`Refund failed for bid ${bid.id} (payment ${bid.paymentId})`, err);
   }
+}
 
-  return {
-    bidId: bid.id as string,
-    amount: input.amount,
-    deposit,
-    reachedCap,
-    checkoutUrl: null as string | null,
-  };
+/** Called by the webhook when a checkout never completes (expired, canceled, declined). */
+export async function failBid(input: { bidId: string }) {
+  const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+  await supabaseAdmin
+    .from("bids")
+    .update({ status: "failed" })
+    .eq("id", input.bidId)
+    .eq("status", "pending"); // don't clobber a bid a concurrent webhook already confirmed
 }
 
 /** Private bucket — logos are served through short-lived signed URLs. */
