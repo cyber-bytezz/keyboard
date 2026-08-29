@@ -1,0 +1,1 @@
+UPDATE public.sponsor_spots SET base_price = CASE tier WHEN 'accent' THEN 2 WHEN 'home_row' THEN 3 WHEN 'enter_shift' THEN 4 WHEN 'spacebar' THEN 6 ELSE 2 END, current_price = LEAST(GREATEST(current_price, 2), 6); UPDATE public.bids SET amount = LEAST(GREATEST(amount, 2), 6);

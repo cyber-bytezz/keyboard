@@ -1,0 +1,1 @@
+UPDATE public.sponsor_spots SET current_price = base_price WHERE status = 'open';
