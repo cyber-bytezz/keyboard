@@ -11,11 +11,11 @@ export function SectionHeading({
 }) {
   return (
     <div className="mb-10">
-      <p className="font-mono-ui text-xs tracking-tight text-primary">
+      <p className="font-mono-ui text-xs tracking-tight text-clay">
         <span className="text-muted-foreground">~/brand-my-keyboard $ </span>
         cat {file}
       </p>
-      <h2 className="font-mono-ui mt-3 text-2xl font-bold tracking-tight text-foreground sm:text-3xl">
+      <h2 className="mt-3 text-2xl font-bold tracking-tight text-foreground sm:text-3xl">
         {title}
       </h2>
       {children ? (

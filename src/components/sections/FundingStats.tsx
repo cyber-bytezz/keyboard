@@ -13,25 +13,34 @@ export function FundingStats({ spots }: { spots: SponsorSpot[] }) {
   ];
 
   return (
-    <div className="rounded-md border border-border bg-surface p-5">
-      <dl className="grid grid-cols-2 gap-4 sm:grid-cols-3">
+    <div className="card-surface h-full rounded-2xl border border-border bg-surface p-6">
+      <dl className="grid grid-cols-3 gap-4">
         {items.map((item) => (
           <div key={item.label} className="min-w-0">
-            <dt className="font-mono-ui text-[10px] uppercase tracking-wide text-muted-foreground">
+            <dt className="font-mono-ui truncate text-[10px] uppercase tracking-wide text-muted-foreground">
               {item.label}
             </dt>
-            <dd className="font-mono-ui mt-1 truncate text-lg font-bold text-foreground sm:text-xl">
+            <dd className="font-mono-ui mt-1.5 truncate text-2xl font-bold tabular-nums text-foreground sm:text-3xl">
               {item.value}
             </dd>
           </div>
         ))}
       </dl>
-      <div className="mt-5 h-2 w-full overflow-hidden rounded-[2px] bg-keycap">
-        <div className="h-full bg-primary transition-all duration-500" style={{ width: `${pct}%` }} />
+
+      <div className="mt-6 flex items-center gap-3">
+        <div className="h-2.5 w-full min-w-0 overflow-hidden rounded-full bg-keycap">
+          <div
+            className="h-full rounded-full bg-gradient-to-r from-clay to-clay/70 transition-[width] duration-700 ease-out"
+            style={{ width: `${pct}%` }}
+          />
+        </div>
+        <span className="font-mono-ui shrink-0 text-xs font-bold tabular-nums text-clay">
+          {pct.toFixed(1)}%
+        </span>
       </div>
-      <p className="font-mono-ui mt-2 text-[11px] text-muted-foreground">
-        {pct.toFixed(1)}% funded — every dollar goes into the build: switches, caps, plate, films,
-        lube, and the printing rig.
+      <p className="mt-3 text-xs leading-relaxed text-muted-foreground">
+        funded — every dollar goes into the build: switches, caps, plate, films, lube, and the
+        printing rig.
       </p>
     </div>
   );

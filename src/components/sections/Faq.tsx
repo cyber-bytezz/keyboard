@@ -29,10 +29,16 @@ export function Faq() {
   return (
     <section id="faq" className="mx-auto w-full max-w-3xl px-5 py-20">
       <SectionHeading file="faq.md" title="Questions, answered plainly" />
-      <Accordion type="single" collapsible className="w-full">
+      <Accordion
+        type="single"
+        collapsible
+        className="card-surface w-full divide-y divide-border overflow-hidden rounded-2xl border border-border bg-surface px-5"
+      >
         {FAQS.map((item) => (
-          <AccordionItem key={item.q} value={item.q}>
-            <AccordionTrigger className="font-mono-ui text-left text-sm">{item.q}</AccordionTrigger>
+          <AccordionItem key={item.q} value={item.q} className="border-b-0">
+            <AccordionTrigger className="text-left text-sm font-medium hover:no-underline [&_svg]:text-clay">
+              {item.q}
+            </AccordionTrigger>
             <AccordionContent className="text-sm leading-relaxed text-muted-foreground">
               {item.a}
             </AccordionContent>

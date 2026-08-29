@@ -65,11 +65,11 @@ const Keycap = memo(function Keycap({
         "kb-key font-mono-ui group relative flex h-9 min-w-0 select-none items-center justify-center rounded-[5px] px-1 text-[10px] leading-none transition-transform duration-100 sm:h-11 sm:text-[11px]",
         !spot && "kb-key-dead cursor-default text-keycap-foreground/60",
         spot?.status === "open" &&
-          "kb-key-open cursor-pointer text-primary hover:translate-y-[1px] hover:brightness-110",
+          "kb-key-open cursor-pointer text-black/80 hover:translate-y-[1px] hover:brightness-110",
         spot?.status === "taken" &&
           "kb-key-taken cursor-pointer text-clay-foreground hover:translate-y-[1px] hover:brightness-110",
         isDown && "kb-key-down",
-        selected && "ring-2 ring-primary ring-offset-2 ring-offset-surface",
+        selected && "ring-2 ring-clay ring-offset-2 ring-offset-[#141416]",
       )}
       aria-label={
         spot
@@ -170,11 +170,11 @@ export function KeyboardBoard({ spots, selectedCode, onSelect }: Props) {
           caps their physical depth, like a product shot. */}
       <div
         ref={viewRef}
-        className="w-full overflow-hidden px-1 pb-6 pt-2"
+        className="w-full overflow-hidden rounded-2xl border border-border bg-surface px-1 pb-8 pt-6 shadow-[inset_0_1px_0_rgb(255_255_255/0.6)] sm:px-4"
         style={{
           perspective: "1600px",
           perspectiveOrigin: "50% 40%",
-          height: viewHeight ? viewHeight + 32 : undefined,
+          height: viewHeight ? viewHeight + 56 : undefined,
         }}
       >
         <div
@@ -222,7 +222,7 @@ export function KeyboardBoard({ spots, selectedCode, onSelect }: Props) {
         </div>
       </div>
 
-      <div className="mt-2 flex flex-wrap items-center justify-center gap-3">
+      <div className="mt-4 flex flex-wrap items-center justify-center gap-3">
         <span className="font-mono-ui text-[11px] text-muted-foreground">
           tap a keycap — or type on your own keyboard
         </span>
@@ -244,15 +244,15 @@ export function KeyboardBoard({ spots, selectedCode, onSelect }: Props) {
         </Button>
       </div>
 
-      <div className="font-mono-ui mt-4 flex flex-wrap justify-center gap-x-5 gap-y-2 text-[11px] text-muted-foreground">
-        <span className="flex items-center gap-2">
-          <span className="size-3 rounded-[2px] bg-primary/40" /> open spot
+      <div className="font-mono-ui mt-4 flex flex-wrap justify-center gap-2 text-[11px] text-muted-foreground">
+        <span className="inline-flex items-center gap-1.5 rounded-full border border-border bg-surface px-2.5 py-1">
+          <span className="size-2 rounded-full bg-foreground/30" /> open spot
         </span>
-        <span className="flex items-center gap-2">
-          <span className="size-3 rounded-[2px] bg-clay/50" /> taken
+        <span className="inline-flex items-center gap-1.5 rounded-full border border-border bg-surface px-2.5 py-1">
+          <span className="size-2 rounded-full bg-clay" /> taken
         </span>
-        <span className="flex items-center gap-2">
-          <span className="size-3 rounded-[2px] bg-keycap" /> not for sale
+        <span className="inline-flex items-center gap-1.5 rounded-full border border-border bg-surface px-2.5 py-1">
+          <span className="size-2 rounded-full bg-keycap" /> not for sale
         </span>
       </div>
     </div>

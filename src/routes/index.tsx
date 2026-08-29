@@ -43,26 +43,31 @@ function Index() {
       <SiteHeader />
 
       <main>
-        <section className="relative mx-auto w-full max-w-6xl px-5 pb-10 pt-16 text-center">
+        <section className="relative mx-auto w-full max-w-6xl px-5 pb-10 pt-10 text-center sm:pt-14">
+          <div aria-hidden className="bg-dot-grid pointer-events-none absolute inset-x-0 top-0 -z-10 h-[420px]" />
           <div
             aria-hidden
-            className="pointer-events-none absolute left-1/2 top-24 -z-10 h-[420px] w-[820px] max-w-[95vw] -translate-x-1/2 rounded-full bg-primary/10 blur-[130px]"
+            className="pointer-events-none absolute left-1/2 top-10 -z-10 h-[420px] w-[820px] max-w-[95vw] -translate-x-1/2 rounded-full bg-clay/25 blur-[130px]"
           />
-          <p className="font-mono-ui text-xs text-primary">
-            <span className="text-muted-foreground">$ </span>./brand-my-keyboard --live
+          <p className="font-mono-ui inline-flex items-center gap-1.5 rounded-full border border-border bg-surface px-3 py-1 text-xs text-clay">
+            <span className="text-muted-foreground">$</span>./brand-my-keyboard --live
           </p>
-          <h1 className="font-mono-ui mx-auto mt-5 max-w-3xl text-3xl font-bold leading-tight tracking-tight text-foreground sm:text-5xl">
-            Put your logo on a keycap I actually type on.
+          <h1 className="mx-auto mt-5 max-w-4xl text-5xl font-bold leading-[1.05] tracking-tight text-balance text-foreground sm:text-7xl">
+            Put your logo on a <span className="text-clay">keycap</span> I actually type on.
           </h1>
-          <p className="mx-auto mt-5 max-w-2xl text-base leading-relaxed text-muted-foreground">
+          <p className="mx-auto mt-4 max-w-2xl text-balance text-base leading-relaxed text-muted-foreground">
             I'm building a custom mechanical keyboard in public. Every sponsor keycap gets your logo
             UV-printed on a real cap — then it shows up in the build logs, macro shots and dev videos
             that follow. Spin the board, pick a cap, place your bid.
           </p>
 
-          <div id="board" className="mt-12 space-y-6 text-left">
+          <div id="board" className="relative mt-9 space-y-6 text-left">
+            <div
+              aria-hidden
+              className="pointer-events-none absolute inset-x-0 top-10 -z-10 h-[340px] bg-[radial-gradient(60%_100%_at_50%_20%,oklch(0.645_0.19_27_/_0.12),transparent_70%)]"
+            />
             {isLoading ? (
-              <div className="font-mono-ui h-[320px] animate-pulse rounded-md border border-border bg-surface p-6 text-xs text-muted-foreground">
+              <div className="font-mono-ui h-[320px] animate-pulse rounded-2xl border border-border bg-surface p-6 text-xs text-muted-foreground">
                 loading board…
               </div>
             ) : (
@@ -84,10 +89,15 @@ function Index() {
           </div>
         </section>
 
-
-        <HowItWorks />
-        <PricingTiers spots={list} />
-        <Faq />
+        <div className="border-t border-border">
+          <HowItWorks />
+        </div>
+        <div className="border-t border-border">
+          <PricingTiers spots={list} />
+        </div>
+        <div className="border-t border-border">
+          <Faq />
+        </div>
       </main>
 
       <SiteFooter />
